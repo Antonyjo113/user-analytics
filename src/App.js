@@ -1,5 +1,6 @@
 import React, {createContext, useState, useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 import './App.css';
@@ -7,6 +8,7 @@ import Login from './components/login/Login';
 import Layout from './components/layout/Layout';
 import User from './components/user/User';
 import Analytics from './components/analytics/Analytics';
+import SignUp from './components/login/Signup';
 
 
 export const UserContext = createContext();
@@ -18,8 +20,8 @@ function App() {
 
   useEffect(() => {
 
-    const userAuth =  sessionStorage.getItem('auth')
-    setUser(userAuth)
+    const userEmail = Cookies.get('userEmail');
+    setUser(userEmail)
 
   }, [])
 
@@ -28,6 +30,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route path='/' element={<Login />} />
+        <Route path='/signup' element={<SignUp />} />
         {
           user &&
           <Route path='/' element={

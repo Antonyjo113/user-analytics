@@ -1,15 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 
 const Navbar = () => {
 
+    const location = useLocation();
 
     return (
-        <>
-        <Link to="/user">User</Link>
-        <Link to="/analytics">Analytics</Link>
-        </>
+        <div className="nav-links">
+        <Link to="/user" className={location.pathname === "/user" ? "active-link" : ""} >User</Link>
+        <Link to="/analytics" className={location.pathname === "/analytics" ? "active-link" : ""} >Analytics</Link>
+        </div>
     )
 }
 

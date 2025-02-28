@@ -1,28 +1,29 @@
 import React from "react";
 
 
-const Input = (props) => {
+const Checkbox = (props) => {
 
 
     const onChange = (e) => {
-        props.onChangeText(e)
+        props.onChangeCheck(e)
     }
 
 
     return (
-        <div>
-            {props?.label && <div><label>{props.label}</label></div> }
+        <>
+            {props?.name && <label>{props.name}</label> }
+
             <input 
+                type="checkbox"
                 id={props.id} 
                 name={props.name} 
-                value={props.value} 
+                checked={props.value} 
                 className={props.className}
-                placeholder={props.placeholder}
                 onChange={(e) => onChange(e)} 
             />
-        </div>
+        </>
     )
 
 }
 
-export default Input
+export default Checkbox

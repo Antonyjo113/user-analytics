@@ -1,7 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *{
   margin: 0;
   padding: 0;
 }
+
 
 /* 
 
@@ -21,6 +26,10 @@ https://colorhunt.co/palette/640d5fd91656eb5b00ffb200
   color: #D91656;
 }
 
+.white-clr{
+  color: #FFFFFF;
+}
+
 .primary-bg-clr{
   background-color: #640D5F;
 }
@@ -30,16 +39,258 @@ https://colorhunt.co/palette/640d5fd91656eb5b00ffb200
 }
 
 
-/* ============== LOGIN CLASS STATEMENTS ======== */
+/* ============== LAYOUT CLASS STATEMENTS ======== */
 
 
 .navbar-wrapper{
-  height: 30px;
+  height: 50px;
 }
 
 .main-wrapper {
   height: calc(100vh - 30px);
+  padding: 20px;
 }
 
-  
+.nav-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+}
 
+.nav-links a {
+  text-decoration: none;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  padding: 0 20px;
+  transition: color 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 2px;
+}
+
+.nav-links a:hover {
+  color: #f3f3f3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.nav-links a.active-link {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+  
+/* ============== LOGIN CLASS STATEMENTS ======== */
+
+
+.login-wrapper {
+  width: 100%;
+}
+
+.login-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  height: 250px;
+  text-align: center;
+  margin: 200px auto;
+}
+
+
+.login-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+
+.login-input {
+  width: 300px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.login-input:focus {
+  border-color: #640D5F;
+  outline: none;
+}
+
+
+.login-button {
+  width: 200px;
+  padding: 10px;
+  margin-top: 15px;
+  background-color: #640D5F;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.login-button:hover {
+  background-color: #640D5F;
+}
+
+@media (max-width: 600px) {
+  .login-wrapper {
+    padding-right: 20px;
+  }
+
+  .login-content {
+    padding: 20px;
+    max-width: 300px;
+  }
+}
+
+
+
+
+.p-datatable{
+  box-shadow: 0 0 2px 1px #dadbdb !important;
+}
+.p-datatable-table > .p-datatable-thead > tr:nth-child(1){
+  background-color: #640D5F !important;
+  font-size: 14px !important;
+  color: #FFFFFF !important;
+  text-align: center !important;
+}
+
+.p-datatable-table > .p-datatable-thead > tr:nth-child(2){
+  background-color: #D91656 !important;
+  font-size: 12px !important;
+  font-size: 12px !important;
+  color: #FFFFFF !important;
+
+}
+
+.p-menuitem-text{
+  color: #FFFFFF;
+}
+.p-menuitem-link{
+  text-decoration: none;
+  padding: 3px 0;
+}
+
+.p-datatable-table > .p-datatable-thead > tr > th > .p-column-header-content {
+  justify-content: center !important;
+}
+
+.p-datatable-table > .p-datatable-thead > tr:nth-child(1) > th {
+  padding: 5px !important;
+}
+
+.p-datatable-table > .p-datatable-thead > tr:nth-child(2) > th {
+  padding: 3px !important;
+}
+
+.p-datatable-table > .p-datatable-tbody > tr > td {
+  padding: 3px !important;
+}
+
+.p-datatable-table > .p-datatable-tbody > tr > td:nth-child(1) {
+  border-left: 0.5px solid rgb(211, 210, 210) !important;  
+  border-bottom: 0.5px solid rgb(211, 210, 210) !important;  
+}
+
+.p-datatable-table > .p-datatable-tbody > tr > td:nth-child(n+1):nth-child(-n+10) {
+  border-right: 0.5px solid rgb(211, 210, 210) !important;  
+  border-bottom: 0.5px solid rgb(211, 210, 210) !important;  
+}
+
+
+.p-datatable-table > .p-datatable-tbody{
+  font-size: 14px !important;
+  color: #363636 !important;
+}
+
+/* ========== p-dialog ============ */
+
+.p-dialog {
+  width: 500px;
+  background-color: #FFFFFF;
+  padding: 20px;
+}
+
+.p-dialog-mask{
+  background-color: #241f23;
+  opacity: 0.8;
+
+}
+.p-dialog-header{
+  background-color: #640D5F;
+  padding: 10px;
+}
+
+.p-dialog-title{
+  color: #FFFFFF;
+}
+
+.p-dialog-header-close-icon{
+  color: #FFFFFF;
+}
+
+.p-dialog-content, .dialog-footer{
+  padding: 10px 0;
+}
+
+/* ========== p-inputs ============ */
+
+
+.input-text {
+  width: 300px;
+  padding: 10px;
+  margin: 5px 0;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input-text:focus {
+  border-color: #640D5F;
+  outline: none;
+}
+
+
+.submit-btn {
+  width: 200px;
+  padding: 10px;
+  margin: 0 5px;
+  background-color: #640D5F;
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+
+
+.submit-btn:hover {
+  background-color: #640D5F;
+}
+
+.input-check{
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+
+.line-chart1{
+  width: 50%;
+  height: 50%;
+}

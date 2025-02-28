@@ -1,6 +1,9 @@
 import React, {useState} from "react";
 import Input from "../../elements/Input";
 import Button from "../../elements/Button";
+import LoginService from "../../services/LoginService";
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 
 const Login = () => {
@@ -9,14 +12,33 @@ const Login = () => {
     const[username, setUsername] = useState('')
     const[password, setPassword] = useState('')
 
-    const loginProcess = () => {
+    const navigate = useNavigate()
 
-        if(username == 'antony' && password == 'antony'){
-            
-            sessionStorage.setItem('auth', username)
+    const SignupProcess = () => {
+        navigate(`/signup`)
+    }
+
+    const loginProcess = async () => {
+
+        try {
+            const loginData = {
+                'email': username,
+                'password': password
+            }
+            const response = await LoginService.userLogin(loginData)
+            const authtoken = response.user['auth']
+            const useremail = response.user['email']
+
+                Cookies.set('authToken', authtoken, { expires: 1/24 }); 
+                Cookies.set('userEmail', useremail, { expires: 1/24 });
+
             setTimeout(() => {
                 window.location.href = 'user'
             }, 2000)
+
+            
+        } catch (error) {
+            console.log("Loggin Error", error);
         }
 
     }
@@ -24,11 +46,30 @@ const Login = () => {
 
     return (
         <div className="login-wrapper">
-            <p> Login</p>
             <div className="login-content">
-                <Input name='username' class="" value={username} onChangeText={(e) => setUsername(e.target.value)} />
-                <Input name='password' class="" value={password} onChangeText={(e) => setPassword(e.target.value)} />
-                <Button name='login' class="" label="Login" onChangeButton={loginProcess} />
+                <p className="login-title">Login</p>
+                <Input
+                name="username"
+                className="login-input"
+                value={username}
+                placeholder="Enter Psername"
+                onChangeText={(e) => setUsername(e.target.value)}
+                />
+                <Input
+                name="password"
+                className="login-input"
+                value={password}
+                placeholder="Enter Password"
+                onChangeText={(e) => setPassword(e.target.value)}
+                />
+                <Button
+                name="login"
+                className="login-button"
+                label="Login"
+                onChangeButton={loginProcess}
+                />
+                <p>If not have account / <button onClick={SignupProcess}> Sign Up</button></p>
+
             </div>
         </div>
     )
