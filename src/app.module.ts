@@ -3,12 +3,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { PrismaModule } from './prisma/prisma.module';
-import { AuthModule } from './auth/auth.module';
-import { JwtService } from './auth/jwt.service';
+import { JwtAuthModule } from './jwt-auth/jwt-auth.module';
+import { AnalyticsModule } from './analytics/analytics.module';
 
 @Module({
-  imports: [PrismaModule, UsersModule, AuthModule],
+  imports: [PrismaModule, UsersModule, JwtAuthModule, AnalyticsModule],
   controllers: [AppController],
-  providers: [AppService, JwtService],
+  providers: [AppService],
 })
 export class AppModule {}

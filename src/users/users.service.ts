@@ -4,10 +4,13 @@ import { PrismaService } from 'src/prisma/prisma.service';
 import { User } from './user.interface';
 import { CreateUserDto } from './dto/create-user.dto';
 import { LoginUserDto } from './dto/login-user.dto';
+import { JwtAuthService } from 'src/jwt-auth/jwt-auth.service';
+import { UpdateUserDto } from './dto/update-user.dto';
+import emailService from './emailService';
 
 @Injectable()
 export class UsersService {
-    constructor(private prisma: PrismaService) {}
+    constructor(private prisma: PrismaService , private jwtAuthService: JwtAuthService) {}
 
     async createUser(createUserDto: CreateUserDto): Promise<User> {
         const { email, password, firstName, lastName, role, status, accountBlocked } = createUserDto;
@@ -28,19 +31,35 @@ export class UsersService {
         });
     
         return user;
-      }
+    }
     
     async getUsers(): Promise<User[]> {
         return this.prisma.user.findMany();
     }
     
-    // async getUserById(id: number): Promise<User | null> {
-    //     return this.prisma.user.findUnique({
-    //       where: {
-    //         id: id, 
-    //       },
-    //     });
-    // }
+    async getUserById(id: number): Promise<User | null> {
+        return this.prisma.user.findUnique({
+          where: {
+            id: id, 
+          },
+        });
+    }
+
+    async updateUser(id: number, updateData: UpdateUserDto): Promise<User> {
+        const user = await this.getUserById(id);
+        if (!user) {
+          throw new Error('User not found');
+        }
+    
+        return this.prisma.user.update({
+          where: {
+            id: id, 
+          },
+          data: {
+            ...updateData,
+          },
+        });
+    }
     
     async loginUser(loginUserDto: LoginUserDto): Promise<{ message: string; status: boolean; user?: User }> {
         const { email, password } = loginUserDto;
@@ -52,14 +71,16 @@ export class UsersService {
         if (user) {
           try {
 
-            // Ensure the stored password is a valid Argon2 hash
             console.log('Stored password hash:', user.password);
       
-            // Verify the password using Argon2
             const isPasswordValid = await argon2.verify(user.password, password);
       
             if (isPasswordValid) {
-              console.log('Password is correct');
+                const useremail = { email };
+                console.log('Password is correct');
+                const jwttoken =  this.jwtAuthService.generateToken(useremail);
+                user['auth'] = jwttoken;
+                await emailService.sendWelcomeEmail(user.email, user.firstName);
               return {
                 message: 'Login successful!',
                 status: true,
@@ -86,6 +107,17 @@ export class UsersService {
             status: false,
           };
         }
+      }
+    
+      async deleteUser(id: number): Promise<void> {
+        const userExists = await this.prisma.user.findUnique({ where: { id } });
+        if (!userExists) {
+          throw new Error('User not found');
+        }
+    
+        await this.prisma.user.delete({
+          where: { id },
+        });
       }
 
 
