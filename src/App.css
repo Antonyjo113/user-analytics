@@ -1,0 +1,45 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+/* 
+
+COLOR HUNT
+https://colorhunt.co/palette/640d5fd91656eb5b00ffb200 
+
+*/
+
+
+/* ============== STANDARD CLASS STATEMENTS ======== */
+
+.primary-clr{
+  color: #640D5F;
+}
+
+.secondary-clr{
+  color: #D91656;
+}
+
+.primary-bg-clr{
+  background-color: #640D5F;
+}
+
+.secondary-bg-clr{
+  background-color: #D91656;
+}
+
+
+/* ============== LOGIN CLASS STATEMENTS ======== */
+
+
+.navbar-wrapper{
+  height: 30px;
+}
+
+.main-wrapper {
+  height: calc(100vh - 30px);
+}
+
+  
+
